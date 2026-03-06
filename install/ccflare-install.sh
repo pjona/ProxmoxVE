@@ -21,7 +21,7 @@ msg_ok "Installed Dependencies"
 
 msg_info "Installing Bun"
 export BUN_INSTALL="/root/.bun"
-$STD curl -fsSL https://bun.sh/install | bash
+curl -fsSL https://bun.sh/install | bash >/dev/null 2>&1
 ln -sf /root/.bun/bin/bun /usr/local/bin/bun
 ln -sf /root/.bun/bin/bunx /usr/local/bin/bunx
 msg_ok "Installed Bun"
@@ -32,11 +32,11 @@ msg_ok "Cloned ccflare"
 
 msg_info "Building ccflare (Patience)"
 mkdir -p /opt/ccflare/data
-cd /opt/ccflare-src
+cd /opt/ccflare-src || exit
 $STD bun install
+cd /opt/ccflare-src/apps/tui || exit
 $STD bun run build
-cd /opt/ccflare-src/apps/tui
-$STD bun build src/main.ts --compile --outfile /opt/ccflare/ccflare --target=bun
+cp /opt/ccflare-src/apps/tui/dist/ccflare /opt/ccflare/ccflare
 msg_ok "Built ccflare"
 
 msg_info "Creating Service"
