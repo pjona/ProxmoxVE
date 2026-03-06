@@ -1,0 +1,40 @@
+{
+  "name": "ccflare",
+  "slug": "ccflare",
+  "categories": [
+    20
+  ],
+  "date_created": "2026-03-06",
+  "type": "ct",
+  "updateable": true,
+  "privileged": false,
+  "interface_port": 8080,
+  "documentation": "https://github.com/snipeship/ccflare/tree/main/docs",
+  "website": "https://github.com/snipeship/ccflare",
+  "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/anthropic.webp",
+  "config_path": "/root/.config/ccflare/ccflare.json",
+  "description": "Claude API proxy with intelligent load balancing across multiple Claude accounts",
+  "install_methods": [
+    {
+      "type": "default",
+      "script": "ct/ccflare.sh",
+      "resources": {
+        "cpu": 2,
+        "ram": 2048,
+        "hdd": 8,
+        "os": "debian",
+        "version": "13"
+      }
+    }
+  ],
+  "default_credentials": {
+    "username": null,
+    "password": null
+  },
+  "notes": [
+    {
+      "text": "Add Claude accounts via the dashboard at /dashboard or CLI after install.",
+      "type": "info"
+    }
+  ]
+}
