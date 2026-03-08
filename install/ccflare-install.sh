@@ -35,7 +35,6 @@ mkdir -p /opt/ccflare/data
 cd /opt/ccflare-src || exit
 $STD bun install
 $STD bun run build
-cp /opt/ccflare-src/apps/tui/dist/ccflare /opt/ccflare/ccflare
 msg_ok "Built ccflare"
 
 msg_info "Creating Service"
@@ -47,8 +46,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/ccflare
-ExecStart=/opt/ccflare/ccflare --serve
+WorkingDirectory=/opt/ccflare-src
+ExecStart=/opt/ccflare-src/apps/tui/dist/ccflare --serve
 Restart=on-failure
 RestartSec=5
 Environment="PORT=8080"

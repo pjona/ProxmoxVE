@@ -39,7 +39,6 @@ function update_script() {
   cd /opt/ccflare-src || exit
   $STD bun install
   $STD bun run build
-  cp /opt/ccflare-src/apps/tui/dist/ccflare /opt/ccflare/ccflare
   msg_ok "Built ccflare"
 
   msg_info "Starting Service"
