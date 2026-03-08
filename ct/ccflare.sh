@@ -5,11 +5,11 @@ source <(curl -fsSL https://raw.githubusercontent.com/pjona/ProxmoxVE/main/misc/
 # License: MIT | https://github.com/pjona/ProxmoxVE/raw/main/LICENSE
 # Source: https://github.com/tombii/better-ccflare
 
-APP="ccflare"
+APP="better-ccflare"
 var_tags="${var_tags:-ai;proxy}"
-var_cpu="${var_cpu:-2}"
-var_ram="${var_ram:-2048}"
-var_disk="${var_disk:-8}"
+var_cpu="${var_cpu:-1}"
+var_ram="${var_ram:-512}"
+var_disk="${var_disk:-4}"
 var_os="${var_os:-debian}"
 var_version="${var_version:-13}"
 var_unprivileged="${var_unprivileged:-1}"
