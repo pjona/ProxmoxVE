@@ -3,7 +3,7 @@ source <(curl -fsSL https://raw.githubusercontent.com/pjona/ProxmoxVE/main/misc/
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: pjona
 # License: MIT | https://github.com/pjona/ProxmoxVE/raw/main/LICENSE
-# Source: https://github.com/snipeship/ccflare
+# Source: https://github.com/tombii/better-ccflare
 
 APP="ccflare"
 var_tags="${var_tags:-ai;proxy}"
@@ -23,28 +23,22 @@ function update_script() {
   header_info
   check_container_storage
   check_container_resources
-  if [[ ! -d /opt/ccflare-src ]]; then
+  if [[ ! -d /opt/better-ccflare ]]; then
     msg_error "No ${APP} Installation Found!"
     exit
   fi
-  if git -C /opt/ccflare-src pull | grep -q 'Already up to date'; then
-    msg_ok "There is currently no update available."
-    exit
+  if check_for_gh_release "better-ccflare" "tombii/better-ccflare"; then
+    msg_info "Stopping Service"
+    systemctl stop ccflare
+    msg_ok "Stopped Service"
+
+    fetch_and_deploy_gh_release "better-ccflare" "tombii/better-ccflare" "singlefile" "latest" "/opt/better-ccflare" "better-ccflare-linux-amd64"
+
+    msg_info "Starting Service"
+    systemctl start ccflare
+    msg_ok "Started Service"
+    msg_ok "Updated successfully!"
   fi
-  msg_info "Stopping Service"
-  systemctl stop ccflare
-  msg_ok "Stopped Service"
-
-  msg_info "Building ccflare"
-  cd /opt/ccflare-src || exit
-  $STD bun install
-  $STD bun run build
-  msg_ok "Built ccflare"
-
-  msg_info "Starting Service"
-  systemctl start ccflare
-  msg_ok "Started Service"
-  msg_ok "Updated successfully!"
   exit
 }
 

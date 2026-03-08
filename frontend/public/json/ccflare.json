@@ -1,5 +1,5 @@
 {
-  "name": "ccflare",
+  "name": "better-ccflare",
   "slug": "ccflare",
   "categories": [
     20
@@ -9,19 +9,19 @@
   "updateable": true,
   "privileged": false,
   "interface_port": 8080,
-  "documentation": "https://github.com/snipeship/ccflare/tree/main/docs",
-  "website": "https://github.com/snipeship/ccflare",
+  "documentation": "https://github.com/tombii/better-ccflare",
+  "website": "https://github.com/tombii/better-ccflare",
   "logo": "https://cdn.jsdelivr.net/gh/selfhst/icons@main/webp/anthropic.webp",
-  "config_path": "/root/.config/ccflare/ccflare.json",
-  "description": "Claude API proxy with intelligent load balancing across multiple Claude accounts",
+  "config_path": "/root/.config/better-ccflare/better-ccflare.json",
+  "description": "Claude API proxy with intelligent load balancing across multiple accounts, OAuth token health monitoring, and multi-provider support",
   "install_methods": [
     {
       "type": "default",
       "script": "ct/ccflare.sh",
       "resources": {
-        "cpu": 2,
-        "ram": 2048,
-        "hdd": 8,
+        "cpu": 1,
+        "ram": 512,
+        "hdd": 4,
         "os": "debian",
         "version": "13"
       }

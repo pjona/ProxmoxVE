@@ -3,7 +3,7 @@
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: pjona
 # License: MIT | https://github.com/pjona/ProxmoxVE/raw/main/LICENSE
-# Source: https://github.com/snipeship/ccflare
+# Source: https://github.com/tombii/better-ccflare
 
 source /dev/stdin <<<"$FUNCTIONS_FILE_PATH"
 color
@@ -13,47 +13,25 @@ setting_up_container
 network_check
 update_os
 
-msg_info "Installing Dependencies"
-$STD apt-get install -y \
-  git \
-  unzip
-msg_ok "Installed Dependencies"
-
-msg_info "Installing Bun"
-export BUN_INSTALL=/opt/bun
-curl -fsSL https://bun.sh/install | $STD bash
-ln -sf /opt/bun/bin/bun /usr/local/bin/bun
-ln -sf /opt/bun/bin/bunx /usr/local/bin/bunx
-msg_ok "Installed Bun"
-
-msg_info "Cloning ccflare"
-$STD git clone https://github.com/snipeship/ccflare /opt/ccflare-src
-msg_ok "Cloned ccflare"
-
-msg_info "Building ccflare (Patience)"
-mkdir -p /opt/ccflare/data
-cd /opt/ccflare-src || exit
-$STD bun install
-$STD bun run build
-msg_ok "Built ccflare"
+fetch_and_deploy_gh_release "better-ccflare" "tombii/better-ccflare" "singlefile" "latest" "/opt/better-ccflare" "better-ccflare-linux-amd64"
 
 msg_info "Creating Service"
+mkdir -p /opt/better-ccflare/data
 cat <<EOF >/etc/systemd/system/ccflare.service
 [Unit]
-Description=ccflare Claude API Load Balancer
+Description=better-ccflare Claude API Load Balancer
 After=network.target
 
 [Service]
 Type=simple
 User=root
-WorkingDirectory=/opt/ccflare-src
-ExecStart=/opt/ccflare-src/apps/tui/dist/ccflare --serve
+WorkingDirectory=/opt/better-ccflare
+ExecStart=/opt/better-ccflare/better-ccflare
 Restart=on-failure
 RestartSec=5
 Environment="PORT=8080"
-Environment="LOG_LEVEL=INFO"
-Environment="LOG_FORMAT=json"
-Environment="ccflare_DB_PATH=/opt/ccflare/data/ccflare.db"
+Environment="BETTER_CCFLARE_HOST=0.0.0.0"
+Environment="BETTER_CCFLARE_DB_PATH=/opt/better-ccflare/data/better-ccflare.db"
 
 [Install]
 WantedBy=multi-user.target
