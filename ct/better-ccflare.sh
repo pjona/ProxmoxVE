@@ -2,7 +2,7 @@
 source <(curl -fsSL https://raw.githubusercontent.com/pjona/ProxmoxVE/main/misc/build.func)
 # Copyright (c) 2021-2026 community-scripts ORG
 # Author: pjona
-# License: MIT | https://github.com/pjona/ProxmoxVE/raw/main/LICENSE
+# License: MIT | https://github.com/community-scripts/ProxmoxVE/raw/main/LICENSE
 # Source: https://github.com/tombii/better-ccflare
 
 APP="better-ccflare"
@@ -29,13 +29,13 @@ function update_script() {
   fi
   if check_for_gh_release "better-ccflare" "tombii/better-ccflare"; then
     msg_info "Stopping Service"
-    systemctl stop ccflare
+    systemctl stop better-ccflare
     msg_ok "Stopped Service"
 
     fetch_and_deploy_gh_release "better-ccflare" "tombii/better-ccflare" "singlefile" "latest" "/opt/better-ccflare" "better-ccflare-linux-amd64"
 
     msg_info "Starting Service"
-    systemctl start ccflare
+    systemctl start better-ccflare
     msg_ok "Started Service"
     msg_ok "Updated successfully!"
   fi
