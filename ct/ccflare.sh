@@ -36,11 +36,10 @@ function update_script() {
   msg_ok "Stopped Service"
 
   msg_info "Building ccflare"
-  cd /opt/ccflare-src
+  cd /opt/ccflare-src || exit
   $STD bun install
   $STD bun run build
-  cd /opt/ccflare-src/apps/tui
-  $STD bun build src/main.ts --compile --outfile /opt/ccflare/ccflare --target=bun
+  cp /opt/ccflare-src/apps/tui/dist/ccflare /opt/ccflare/ccflare
   msg_ok "Built ccflare"
 
   msg_info "Starting Service"

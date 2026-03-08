@@ -34,7 +34,6 @@ msg_info "Building ccflare (Patience)"
 mkdir -p /opt/ccflare/data
 cd /opt/ccflare-src || exit
 $STD bun install
-cd /opt/ccflare-src/apps/tui || exit
 $STD bun run build
 cp /opt/ccflare-src/apps/tui/dist/ccflare /opt/ccflare/ccflare
 msg_ok "Built ccflare"
