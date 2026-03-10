@@ -33,7 +33,7 @@
   },
   "notes": [
     {
-      "text": "Add Claude accounts via the dashboard at /dashboard or CLI after install.",
+      "text": "Add Claude accounts and generate an API key via the dashboard at /dashboard after installation.",
       "type": "info"
     }
   ]
